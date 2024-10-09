@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#E2E2E2"
+    android:gravity="center"
+    android:padding="16dp">
+
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/dimza_logo4"
+        android:layout_marginBottom="50dp"
+        ></ImageView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:text="Belgenizde kullanacağınız imzanızı oluşturun."
+        android:textSize="16sp"
+        >
+
+    </TextView>
+
+    <Button
+        android:id="@+id/btnAddSignature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#1E3C4A"
+        android:textSize="20sp"
+        android:text="İmzanı Oluştur"
+        android:padding="12dp"/>
+</LinearLayout>

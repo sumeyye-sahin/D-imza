@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="İmzanı kutucuğa çiz ve kaydet."
+        ></TextView>
+    <!-- İmza Çizim Alanı -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_background">
+
+        <com.sumeyyesahin.eimza.SignatureView
+            android:id="@+id/signatureView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="#00FFFFFF" />
+
+    </FrameLayout>
+
+
+    <!-- Butonlar -->
+    <Button
+        android:id="@+id/btnSaveSignature"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#1E3C4A"
+        android:textSize="20sp"
+        android:text="İmzayı Kaydet" />
+
+    <Button
+        android:id="@+id/btnShowSignature"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#1E3C4A"
+        android:textSize="20sp"
+        android:text="İmzayı Göster" />
+
+    <Button
+        android:id="@+id/btnDeleteSignature"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#1E3C4A"
+        android:textSize="20sp"
+        android:text="İmzayı Sil" />
+
+    <Button
+        android:id="@+id/btnSelectPdf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#1E3C4A"
+        android:textSize="20sp"
+        android:text="PDF Seç ve İmza Ekle" />
+
+    <!-- Kaydedilmiş İmza Görüntüsü -->
+    <ImageView
+        android:id="@+id/signatureImageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:visibility="visible" />
+</LinearLayout>
