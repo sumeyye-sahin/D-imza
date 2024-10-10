@@ -21,7 +21,6 @@
         android:backgroundTint="#1E3C4A"
         android:textSize="20sp"
         android:text="PDF Seç" />
-    <!-- Sayfa Numarası Girişi -->
     <EditText
         android:id="@+id/pageNumberInput"
         android:layout_width="match_parent"

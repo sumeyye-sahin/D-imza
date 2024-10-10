@@ -1,54 +1,48 @@
-package com.sumeyyesahin.eimza
+package com.sumeyyesahin.eimza.activities
 
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.FileProvider
+import com.sumeyyesahin.eimza.R
+import com.sumeyyesahin.eimza.databinding.ActivitySignatureBinding
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
 class SignatureActivity : AppCompatActivity() {
-    private lateinit var signatureView: SignatureView
-    private lateinit var signatureImageView: ImageView
+
+    private lateinit var binding: ActivitySignatureBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signature)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        signatureView = findViewById(R.id.signatureView)
-        signatureImageView = findViewById(R.id.signatureImageView)
 
-        val btnSaveSignature = findViewById<Button>(R.id.btnSaveSignature)
-        val btnShowSignature = findViewById<Button>(R.id.btnShowSignature)
-        val btnDeleteSignature = findViewById<Button>(R.id.btnDeleteSignature)
-        val btnSelectPdf = findViewById<Button>(R.id.btnSelectPdf)
 
-        btnSaveSignature.setOnClickListener {
+        binding.btnSaveSignature.setOnClickListener {
 
-            if(signatureView.path.isEmpty()){
+            if(binding.signatureView.path.isEmpty()){
                 Toast.makeText(this, "İmza atmadınız.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }else{
 
-                val signatureBitmap = signatureView.getSignatureBitmap()
+                val signatureBitmap = binding.signatureView.getSignatureBitmap()
                 saveSignatureAsPng(signatureBitmap)
-                signatureView.clearSignature()
+                binding.signatureView.clearSignature()
             }
 
 
         }
 
-        btnShowSignature.setOnClickListener { loadSignature() }
-        btnDeleteSignature.setOnClickListener { deleteSignature() }
+        binding.btnShowSignature.setOnClickListener { loadSignature() }
+        binding.btnDeleteSignature.setOnClickListener { deleteSignature() }
 
-        btnSelectPdf.setOnClickListener {
+        binding.btnSelectPdf.setOnClickListener {
             val signatureFile = File(filesDir, "signature.png")
             if (signatureFile.exists()) {
                 val signatureUri = FileProvider.getUriForFile(
@@ -90,7 +84,7 @@ class SignatureActivity : AppCompatActivity() {
         if (file.exists()) {
             try {
                 val bitmap = BitmapFactory.decodeStream(FileInputStream(file))
-                signatureImageView.setImageBitmap(bitmap)
+                binding.signatureImageView.setImageBitmap(bitmap)
                 Toast.makeText(this, "İmza başarıyla yüklendi.", Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -108,14 +102,14 @@ class SignatureActivity : AppCompatActivity() {
         if (file.exists()) {
             if (file.delete()) {
 
-                signatureImageView.setImageBitmap(null)
+                binding.signatureImageView.setImageBitmap(null)
 
                 Toast.makeText(this, "İmza başarıyla silindi.", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "İmza silinirken bir hata oluştu.", Toast.LENGTH_LONG).show()
             }
         } else {
-            signatureView.clearSignature()
+            binding.signatureView.clearSignature()
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.sumeyyesahin.eimza
+package com.sumeyyesahin.eimza.activities
 
 import android.content.Intent
 import android.graphics.Bitmap
@@ -8,9 +8,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MotionEvent
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -23,13 +20,15 @@ import com.itextpdf.io.image.ImageDataFactory
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas
 import com.itextpdf.layout.Canvas
 import com.itextpdf.layout.element.Image
+import com.sumeyyesahin.eimza.R
+import com.sumeyyesahin.eimza.databinding.ActivityPdfBinding
 import java.io.File
 import java.io.FileOutputStream
 
 class PdfActivity : AppCompatActivity() {
 
-    private lateinit var pdfImageView: ImageView
-    private lateinit var pageNumberInput: EditText
+    private lateinit var binding: ActivityPdfBinding
+
     private var pdfUri: Uri? = null
     private var selectedX = 0f
     private var selectedY = 0f
@@ -38,17 +37,14 @@ class PdfActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pdf)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        pdfImageView = findViewById(R.id.pdfImageView)
-        pageNumberInput = findViewById(R.id.pageNumberInput)
-        val btnSelectPdf = findViewById<Button>(R.id.btnSelectPdf)
 
-        btnSelectPdf.setOnClickListener { selectPdfFile() }
+        binding.btnSelectPdf.setOnClickListener { selectPdfFile() }
 
-        pageNumberInput.addTextChangedListener(object : TextWatcher {
+        binding.pageNumberInput.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 pdfUri?.let {
 
-                    val pageNum = if (pageNumberInput.text.isEmpty()) 1 else (pageNumberInput.text.toString().toIntOrNull() ?: 1)
+                    val pageNum = if (binding.pageNumberInput.text.isEmpty()) 1 else (binding.pageNumberInput.text.toString().toIntOrNull() ?: 1)
                     if (pageNum in 1..(getPageCount() ?: 0)) {
                         displayPdfPage(it, pageNum - 1)
                     } else {
@@ -62,14 +58,14 @@ class PdfActivity : AppCompatActivity() {
         })
 
 
-        pdfImageView.setOnTouchListener { _, event ->
+        binding.pdfImageView.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 selectedX = event.x
                 selectedY = event.y
                 pdfUri?.let { uri ->
                     intent.getStringExtra("signatureUri")?.let { signatureUri ->
 
-                        val pageNumInput = pageNumberInput.text.toString()
+                        val pageNumInput = binding.pageNumberInput.text.toString()
                         val pageNum = if (pageNumInput.isEmpty()) 1 else pageNumInput.toInt()
                         addSignatureToPdf(uri, Uri.parse(signatureUri), pageNum, selectedX, selectedY)
                     }
@@ -102,13 +98,13 @@ class PdfActivity : AppCompatActivity() {
                     val pdfWidth = page.width
                     val pdfHeight = page.height
 
-                    pdfImageView.layoutParams.width = pdfWidth
-                    pdfImageView.layoutParams.height = pdfHeight
-                    pdfImageView.requestLayout()
+                    binding.pdfImageView.layoutParams.width = pdfWidth
+                    binding.pdfImageView.layoutParams.height = pdfHeight
+                    binding.pdfImageView.requestLayout()
 
                     val bitmap = Bitmap.createBitmap(pdfWidth, pdfHeight, Bitmap.Config.ARGB_8888)
                     page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-                    pdfImageView.setImageBitmap(bitmap)
+                    binding.pdfImageView.setImageBitmap(bitmap)
                 }
             }
         }
@@ -129,8 +125,8 @@ class PdfActivity : AppCompatActivity() {
                         val pdfWidth = page.pageSize.width
                         val pdfHeight = page.pageSize.height
 
-                        val scaleX = pdfWidth / pdfImageView.width
-                        val scaleY = pdfHeight / pdfImageView.height
+                        val scaleX = pdfWidth / binding.pdfImageView.width
+                        val scaleY = pdfHeight / binding.pdfImageView.height
 
                         val pdfX = touchX * scaleX
                         val pdfY = pdfHeight - (touchY * scaleY)  // Y koordinatını ters çevirin

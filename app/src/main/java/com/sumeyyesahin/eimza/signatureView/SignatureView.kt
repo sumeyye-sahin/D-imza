@@ -1,4 +1,4 @@
-package com.sumeyyesahin.eimza
+package com.sumeyyesahin.eimza.signatureView
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet

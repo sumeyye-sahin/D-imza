@@ -11,13 +11,13 @@
         android:layout_gravity="center"
         android:text="İmzanı kutucuğa çiz ve kaydet."
         ></TextView>
-    <!-- İmza Çizim Alanı -->
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/border_background">
 
-        <com.sumeyyesahin.eimza.SignatureView
+        <com.sumeyyesahin.eimza.signatureView.SignatureView
             android:id="@+id/signatureView"
             android:layout_width="match_parent"
             android:layout_height="300dp"
@@ -26,7 +26,7 @@
     </FrameLayout>
 
 
-    <!-- Butonlar -->
+
     <Button
         android:id="@+id/btnSaveSignature"
         android:layout_width="match_parent"
@@ -59,7 +59,7 @@
         android:textSize="20sp"
         android:text="PDF Seç ve İmza Ekle" />
 
-    <!-- Kaydedilmiş İmza Görüntüsü -->
+
     <ImageView
         android:id="@+id/signatureImageView"
         android:layout_width="match_parent"
